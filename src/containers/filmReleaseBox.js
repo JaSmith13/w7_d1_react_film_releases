@@ -2,6 +2,7 @@ import {useState} from 'react'
 import FilmReleaseList from '../components/filmReleaseList'
 
 import MoreReleasesButton from '../components/moreReleasesButton'
+import FilmForm from './filmForm'
 
 const FilmReleaseBox = () => {
 
@@ -35,11 +36,20 @@ const FilmReleaseBox = () => {
             ]
     )
 
+    const addFilm = (submittedFilm) => {
+        submittedFilm.id = Date.now()
+        const updatedFilms = [...filmReleases, submittedFilm]
+        setFilmReleases(updatedFilms)
+    }
+
     return(
         <>
         <h1>Upcoming Releases</h1>
         <FilmReleaseList filmReleases={filmReleases}/>
         <MoreReleasesButton/>
+        <FilmForm onFilmSubmit={
+            (film) => {addFilm(film)}
+        }/>
         </>
     )
 }
